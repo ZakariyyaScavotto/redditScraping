@@ -98,7 +98,7 @@ sortInput = tk.Text(frame, height=1)
 sortInput.insert(tk.END, "")
 sortInput.grid(row=2,column=1, sticky='nsew')
 limitLabel= tk.StringVar()
-limitLabel.set('Enter number of posts to look at (ex: 50)') #hot, top, new
+limitLabel.set('Enter number of posts to look at (ex: 50)')
 limittDir = tk.Label(frame, textvariable=limitLabel)
 limittDir.grid(row=3,column=0, sticky=tk.W+tk.E+tk.N+tk.S)
 limitInput = tk.Text(frame, height=1)
