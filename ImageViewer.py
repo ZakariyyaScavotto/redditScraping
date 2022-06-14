@@ -37,7 +37,8 @@ class ImageViewer(tk.Toplevel):
     def __init__(self):
         super().__init__()
         self.title('Image Viewer')
-        self.geometry('800x800')
+        screenWidth, screenHeight = self.winfo_screenwidth(), self.winfo_screenheight()
+        self.geometry(str(screenWidth)+'x'+str(screenHeight))
         self.imageFiles = os.listdir('images')
         self.currentImageIndex, self.maxIndex = 0, len(self.imageFiles)-1
         self.currentFileName = 'images/'+self.imageFiles[self.currentImageIndex]
