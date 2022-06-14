@@ -9,9 +9,11 @@ import praw, re, requests, os
 import tkinter as tk
 
 from ImageViewer import ImageViewer
+
 from dotenv import load_dotenv
 load_dotenv()
 reddit = praw.Reddit(client_id=os.getenv('CLIENT_ID'), client_secret=os.getenv('CLIENT_SECRET'), user_agent=os.getenv('USER_AGENT'))
+
 def getImages():
     query = queryInput.get(1.0, "end-1c")
     if query == '': query='Kenobi'
