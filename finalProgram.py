@@ -1,25 +1,16 @@
-'''
-Helpful articles
-https://www.scrapingbee.com/blog/download-image-python/
-https://stackoverflow.com/questions/30229231/python-save-image-from-url
-https://www.tutorialspoint.com/how-do-i-print-and-have-user-input-in-a-text-box-in-tkinter
-'''
-
 import praw, re, requests, os
 import tkinter as tk
-
 from ImageViewer import ImageViewer
+import shutil
 
 from dotenv import load_dotenv
 load_dotenv()
 reddit = praw.Reddit(client_id=os.getenv('CLIENT_ID'), client_secret=os.getenv('CLIENT_SECRET'), user_agent=os.getenv('USER_AGENT'))
 
-import shutil
-
 global viewer
 viewer = None
 
-def getImages():
+def getandDisplayImages():
     global viewer
     if isinstance(viewer, ImageViewer):
         viewer.destroy()
@@ -105,7 +96,7 @@ limitInput = tk.Text(frame, height=1)
 limitInput.insert(tk.END, "")
 limitInput.grid(row=3,column=1, sticky='nsew')
 
-b = tk.Button(frame, text="Search Reddit", command=getImages)
+b = tk.Button(frame, text="Search Reddit", command=getandDisplayImages)
 b.grid(row=4,column=0, sticky=tk.W+tk.E+tk.N+tk.S)
 label= tk.Label(frame, text="", font=('Calibri 15'), justify=tk.LEFT)
 label.grid(row=4,column=1, sticky=tk.W)
