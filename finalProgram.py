@@ -16,7 +16,13 @@ reddit = praw.Reddit(client_id=os.getenv('CLIENT_ID'), client_secret=os.getenv('
 
 import shutil
 
+global viewer
+viewer = None
+
 def getImages():
+    global viewer
+    if isinstance(viewer, ImageViewer):
+        viewer.destroy()
     query = queryInput.get(1.0, "end-1c")
     if query == '': query='Kenobi'
     sub = subInput.get(1.0, "end-1c")
@@ -29,6 +35,10 @@ def getImages():
     else:
         limit = 50 #default
 
+    if os.path.exists('images/'):
+        shutil.rmtree('images', ignore_errors=True)
+    if not os.path.exists('images/'):
+        os.makedirs('images')
     hotPosts = reddit.subreddit(sub).search(query, sort=sort, limit=limit)
     imagePattern = r'https:\/\/i.redd.it(.)+(\.jpg|\.png)'
     allImagePosts = list()
@@ -48,10 +58,6 @@ def getImages():
             if re.match(imagePattern, post.url):
                 allImagePosts.append(post.url)
 
-    if os.path.exists('images/'):
-        shutil.rmtree('images', ignore_errors=True)
-    if not os.path.exists('images/'):
-        os.makedirs('images')
     for imageURL in allImagePosts:
         tempURL = imageURL[8:-5].replace('/','.')
         data = requests.get(imageURL).content
@@ -62,7 +68,7 @@ def getImages():
 
     label.config(text='Finished')
     viewer = ImageViewer()
-    viewer.mainloop()
+
 
 frame = tk.Tk()
 frame.title('Reddit Scraper')
