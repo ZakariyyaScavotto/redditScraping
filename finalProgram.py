@@ -23,13 +23,13 @@ def getImages():
     global viewer
     if isinstance(viewer, ImageViewer):
         viewer.destroy()
-    query = queryInput.get(1.0, "end-1c")
+    query = queryInput.get(1.0, "end-1c").strip()
     if query == '': query='Kenobi'
-    sub = subInput.get(1.0, "end-1c")
+    sub = subInput.get(1.0, "end-1c").strip()
     if sub == '': sub = 'PrequelMemes'
-    sort =  sortInput.get(1.0, "end-1c")
+    sort =  sortInput.get(1.0, "end-1c").strip()
     if sort == '': sort='hot'
-    limitText = limitInput.get(1.0, "end-1c")
+    limitText = limitInput.get(1.0, "end-1c").strip()
     if limitText != '':
         limit = abs(int(limitText))
     else:
