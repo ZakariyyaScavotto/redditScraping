@@ -9,7 +9,6 @@ reddit = praw.Reddit(client_id=os.getenv('CLIENT_ID'), client_secret=os.getenv('
 
 global viewer
 viewer = None
-
 def getandDisplayImages():
     global viewer
     if isinstance(viewer, ImageViewer):

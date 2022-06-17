@@ -40,7 +40,6 @@ class ImageViewer(tk.Toplevel):
         self.titleAuthorString = self.titleAuthorString[:self.titleAuthorString.rfind('BY')] +' BY u/'+ self.titleAuthorString[self.titleAuthorString.rfind('BY')+2:-4]
         self.titleAuthorLabel.configure(text=self.titleAuthorString)
         
-
     def __init__(self):
         super().__init__()
         self.title('Image Viewer')
