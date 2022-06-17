@@ -32,11 +32,16 @@ def getandDisplayImages():
         os.makedirs('images')
     hotPosts = reddit.subreddit(sub).search(query, sort=sort, limit=limit)
     imagePattern = r'https:\/\/i.redd.it(.)+(\.jpg|\.png)'
-    allImagePosts = list()
+    allImagePosts = dict()
     try:
         for post in hotPosts:
             if re.match(imagePattern, post.url):
-                allImagePosts.append(post.url)
+                postTitle = post.title.strip()
+                invalidChar = ['\"','*','<','>','?','\\','|','/',':']
+                for char in invalidChar:
+                    postTitle = postTitle.replace(char,'')
+                nameTitle = postTitle+'BY'+post.author.name
+                allImagePosts[post.url] = nameTitle
     except:
         print('ERROR OCCURED, USING DEFAULT SEARCH')
         query = queryInput.get(1.0, "end-1c")
@@ -47,12 +52,16 @@ def getandDisplayImages():
         hotPosts = reddit.subreddit(sub).search(query, sort=sort, limit=limit)
         for post in hotPosts:
             if re.match(imagePattern, post.url):
-                allImagePosts.append(post.url)
+                postTitle = post.title.strip()
+                invalidChar = ['\"','*','<','>','?','\\','|','/',':']
+                for char in invalidChar:
+                    postTitle = postTitle.replace(char,'')
+                nameTitle = postTitle+'BY'+post.author.name
+                allImagePosts[post.url] = nameTitle
 
     for imageURL in allImagePosts:
-        tempURL = imageURL[8:-5].replace('/','.')
         data = requests.get(imageURL).content
-        fullFileName = 'images/'+tempURL+'.jpg'
+        fullFileName = 'images/'+allImagePosts[imageURL]+'.jpg'
         if not os.path.exists(fullFileName):
             with open(fullFileName, 'wb') as handler:
                 handler.write(data)
