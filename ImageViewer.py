@@ -20,6 +20,9 @@ class ImageViewer(tk.Toplevel):
         self.tkImage = ImageTk.PhotoImage(image=self.currentImage)
         self.imageLabel.configure(image=self.tkImage)
         self.imageLabel.image = self.tkImage
+        self.titleAuthorString = self.imageFiles[self.currentImageIndex]
+        self.titleAuthorString = self.titleAuthorString[:self.titleAuthorString.rfind('BY')] +' BY u/'+ self.titleAuthorString[self.titleAuthorString.rfind('BY')+2:-4]
+        self.titleAuthorLabel.configure(text=self.titleAuthorString)
 
     def back(self):
         global frame, imageLabel, currentImageIndex, maxIndex, imageFiles
@@ -33,6 +36,10 @@ class ImageViewer(tk.Toplevel):
         self.tkImage = ImageTk.PhotoImage(image=self.currentImage)
         self.imageLabel.configure(image=self.tkImage)
         self.imageLabel.image = self.tkImage
+        self.titleAuthorString = self.imageFiles[self.currentImageIndex]
+        self.titleAuthorString = self.titleAuthorString[:self.titleAuthorString.rfind('BY')] +' BY u/'+ self.titleAuthorString[self.titleAuthorString.rfind('BY')+2:-4]
+        self.titleAuthorLabel.configure(text=self.titleAuthorString)
+        
 
     def __init__(self):
         super().__init__()
@@ -53,8 +60,12 @@ class ImageViewer(tk.Toplevel):
 
         self.backButton = tk.Button(self, text="Back", command= lambda:self.back())
         self.backButton.pack(side='left', padx=25)
+        self.titleAuthorString = self.imageFiles[self.currentImageIndex]
+        self.titleAuthorString = self.titleAuthorString[:self.titleAuthorString.rfind('BY')] +' BY u/'+ self.titleAuthorString[self.titleAuthorString.rfind('BY')+2:-4]
+        self.titleAuthorLabel = tk.Label(self, text=self.titleAuthorString)
+        self.titleAuthorLabel.pack(side='right', padx=25)
         self.forwardButton = tk.Button(self, text="Forward", command= lambda:self.forward())
-        self.forwardButton.pack(side='right', padx=25)
+        self.forwardButton.pack(side='left', padx=25)
 
 # frame = ImageViewer()
 # frame.mainloop()
